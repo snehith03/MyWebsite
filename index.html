@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snehith Reddy | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8; /* Light Blue */
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* --- Header / Nav --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .brand-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .cta-btn {
+            padding: 8px 16px;
+            background: var(--gradient);
+            border-radius: 20px;
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            min-height: 80px; /* Prevents layout jump */
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        /* Typing Effect styling */
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- Skills Section --- */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto 5rem auto;
+            padding: 0 20px;
+        }
+
+        .skill-tag {
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            font-size: 0.9rem;
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        /* --- Projects Section --- */
+        .projects-section {
+            padding: 2rem 10%;
+            margin-bottom: 5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-stack span {
+            background: rgba(255,255,255,0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .project-link {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .project-link:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 4rem 2rem;
+            background: #0b1120;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .send-btn {
+            padding: 12px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { padding: 1rem 5%; }
+            .nav-links { display: none; } /* Simplified mobile view */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="profile-section">
+            <img src="https://previews.jumpshare.com/thumb/8347537cc507cff07a90f5a5803f8e5ed5270b280d9021645626e4396059cbb6fa8e9c5300569d9a0aec14cf4650f3b4c8f4ce1acf90a400dab1027bf8493fc0391390d1f3f464c6550db8564cfaa7a8" alt="Snehith Reddy" class="profile-img">
+            <span class="brand-name">Snehith.dev</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="https://www.instagram.com/k_snehithh/?igsh=MWJ6YjdoNDRibjk2Ng%3D%3D#" target="_blank"><i class="fab fa-instagram"></i> My Channel</a>
+            <a href="https://drive.google.com/file/d/1Uu-scS_tTONf-7SL8M2at8virXCQwG5t/view" target="_blank" class="cta-btn"><i class="fas fa-play"></i> My Video</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <p>Hello, I'm Snehith Reddy Konuganti</p>
+        
+        <h1 id="typing-container"><span class="typing-text"></span></h1>
+        
+        <p>Aspiring Software Developer</p>
+        
+        <a href="#projects" class="cta-btn" style="text-decoration: none; padding: 12px 30px;">View My Work</a>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skill-tag">Java</div>
+            <div class="skill-tag">Spring Boot</div>
+            <div class="skill-tag">Python(Basic)</div>
+            <div class="skill-tag">Machine Learning</div>
+            <div class="skill-tag">SQL</div>
+            <div class="skill-tag">JavaScript</div>
+            <div class="skill-tag">Microservices</div>
+            <div class="skill-tag">Hibernate / JPA</div>
+            <div class="skill-tag">LangGraph</div>
+            <div class="skill-tag">Git & Github</div>
+            <div class="skill-tag">Postman</div>
+            <div class="skill-tag">Swagger/OpenAPI</div>
+            <div class="skill-tag">Data Structures</div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h3>Taxi Booking Backend</h3>
+                <div class="tech-stack">
+                    <span>Spring Boot</span>
+                    <span>Microservices</span>
+                    <span>JavaMail</span>
+                </div>
+                <p>A modular backend system featuring customer management, cab booking, and email notifications using a microservice-oriented architecture.</p>
+                <a href="https://github.com/snehith03/Taxi-Booking-Backend" target="_blank" class="project-link">View on GitHub <i class="fab fa-github"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>AI Marketing Agent</h3>
+                <div class="tech-stack">
+                    <span>LangGraph</span>
+                    <span>AI/LLM</span>
+                    <span>Multi-Agent</span>
+                </div>
+                <p>A multi-agent AI marketing system (Strategist, Writer, Editor) simulating a real agency workflow with feedback loops for content generation.</p>
+                <a href="https://github.com/snehith03/Marketing_Agent" target="_blank" class="project-link">View on GitHub <i class="fab fa-github"></i></a>
+            </div>
+
+            <div class="project-card">
+                <h3>Student Mgmt System</h3>
+                <div class="tech-stack">
+                    <span>Spring Boot</span>
+                    <span>REST API</span>
+                    <span>CRUD</span>
+                </div>
+                <p>A RESTful application to manage student/teacher records with efficient API structuring, DTOs, and controller-service architecture.</p>
+                <a href="https://github.com/snehith03/student-management-app.." target="_blank" class="project-link">View on GitHub <i class="fab fa-github"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-card">
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">Send me a message instantly.</p>
+            <form class="contact-form" id="contact-form">
+                <input type="text" name="user_name" placeholder="Your Name" required>
+                <input type="email" name="user_email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="send-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
+            <p id="status-message" style="margin-top: 15px; font-size: 0.9rem;"></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Snehith Reddy Konuganti. All rights reserved.</p>
+        <p>ksnehith03@gmail.com</p>
+    </footer>
+
+    <script>
+        // 1. TYPING ANIMATION
+        const textElement = document.querySelector('.typing-text');
+        
+        // Words Array
+        const words = ["Welcome to my Portfolio", "Turning Ideas into Reality", "Problem Solver", "Tech Enthusiast"];
+        
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 80 : 150;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end of word
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', type);
+
+        // 2. EMAILJS FUNCTIONALITY (Real-time Email)
+        (function() {
+            // TODO: Replace 'YOUR_PUBLIC_KEY' with your actual key from emailjs.com
+            emailjs.init("YOUR_PUBLIC_KEY"); 
+        })();
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const btn = document.querySelector('.send-btn');
+            const status = document.getElementById('status-message');
+            
+            btn.innerHTML = 'Sending...';
+
+            /* UNCOMMENT THIS BLOCK AFTER ADDING YOUR KEYS
+            // Replace with your Service ID and Template ID
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(function() {
+                    btn.innerHTML = 'Sent!';
+                    status.style.color = '#4ade80';
+                    status.textContent = "Message sent successfully to Snehith!";
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    btn.innerHTML = 'Retry';
+                    status.style.color = '#f87171';
+                    status.textContent = "Failed to send. Please try again.";
+                });
+            */
+            
+            // SIMULATION (Delete this block when you add real keys)
+            setTimeout(() => {
+                btn.innerHTML = 'Sent!';
+                status.style.color = '#4ade80';
+                status.textContent = "Demo Mode: Logic ready. Add EmailJS keys to script.";
+                document.getElementById('contact-form').reset();
+                setTimeout(() => { btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; }, 3000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
